@@ -19,8 +19,11 @@ var api = {};
 
 */
 api.fanOut = function(input, fn) {
-  // TODO: your implementation here.
-  return [];
+  let fannedOut = []
+  for (var i = 0; i < input.length; i++) {
+    fannedOut.push(fn(input[i]))
+  }
+  return fannedOut
 };
 
 
@@ -47,8 +50,11 @@ api.fanOut = function(input, fn) {
 
  */
 api.funnel = function(input, fn, startValue){
-  // TODO: your implementation here.
-  return 0;
+  let total = startValue
+  for (var i = 0; i < input.length; i++) {
+    total=fn(total, input[i])
+  }
+  return total
 };
 
 
@@ -73,8 +79,13 @@ api.funnel = function(input, fn, startValue){
 
  */
 api.distill = function(input, fn){
-  // TODO: your implementation here.
-  return [];
+  let distilled = []
+  for (var i = 0; i < input.length; i++) {
+    if (fn(input[i])) {
+      distilled.push(input[i])
+    }
+  }
+  return distilled
 };
 
 
@@ -96,8 +107,8 @@ api.distill = function(input, fn){
 
  */
 api.numberOfChars = function(input){
-  // TODO: your implementation here
-  return 0;
+  function add(total, n) { return total + n; }
+  return api.funnel(input, add, '').length
 };
 
 
@@ -120,8 +131,11 @@ api.numberOfChars = function(input){
 
  */
 api.numberOfCertainChars= function(input, c){
-// TODO: your implementation here
-  return 0;
+  function isChar(input){ return input === c}
+  function add(total, n) { return total + n; }
+  let joinedString = api.funnel(input, add, '')
+  console.log(joinedString);
+  return api.distill(joinedString, isChar).length
 };
 
 module.exports = api;
