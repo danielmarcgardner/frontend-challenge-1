@@ -134,7 +134,6 @@ api.numberOfCertainChars= function(input, c){
   function isChar(input){ return input === c}
   function add(total, n) { return total + n; }
   let joinedString = api.funnel(input, add, '')
-  console.log(joinedString);
   return api.distill(joinedString, isChar).length
 };
 
